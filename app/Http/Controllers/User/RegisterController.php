@@ -7,18 +7,20 @@ namespace App\Http\Controllers\User;
 use Auth;
 use App\User;
 use App\Traits\Jwt;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Log;
 
 class RegisterController extends Controller
 {
 
-    use RegistersUsers, Jwt;
+    use RegistersUsers, Jwt, ApiResponse;
 
     protected $model = 'User';
+    protected $resource = 'Auth';
 
     public function create(Request $request)
     {
@@ -37,7 +39,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request['password']),
         ]);
         $token =  auth()->login($user);
-        return $this->getTokenFromOtherAttributes();
+        return $this->success($this->getTokenFromOtherAttributes(), 201, $this->resource);
     }
 
 }

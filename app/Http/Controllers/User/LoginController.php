@@ -15,9 +15,10 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers, Jwt;
+    use AuthenticatesUsers, Jwt, ApiResponse;
 
     protected $model = 'User';
+    protected $resource = 'Auth';
 
     public function login(Request $request)
     {
@@ -34,8 +35,7 @@ class LoginController extends Controller
         if (! $token = auth()->attempt($credentials)) {
             return $this->error('Unauthorized. Check Credentials', 401);
         }
-
-        return $this->getTokenFromOtherAttributes();
+        return $this->success($this->getTokenFromOtherAttributes(), 200, $this->resource);
     }
 
     public function logout()

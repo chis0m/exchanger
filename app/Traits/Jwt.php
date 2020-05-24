@@ -36,7 +36,8 @@ trait Jwt
         $customClaims = JWTFactory::customClaims($data);
         $payload = JWTFactory::make($data);
         $token = JWTAuth::encode($payload);
-        return $this->respondWithToken($token->get());
+        // return $this->respondWithToken($token->get());
+        return ['token' => $token->get(), 'type' => 'bearer'];
     }
 
     public function me()

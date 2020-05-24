@@ -19,7 +19,7 @@ Route::get('/', function(){
 
 //Authenticated as User
 Route::prefix('user')->namespace('User')->middleware('assign.guard:users')->group(function(){
-    Route::post('/create', 'RegisterController@register');
+    Route::post('/register', 'RegisterController@create');
     Route::post('/login', 'LoginController@login');
     Route::group(['middleware' => ['jwt.auth']],function ()
     {

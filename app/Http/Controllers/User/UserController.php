@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\User;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Traits\ApiResponse;
  
 
 class UserController extends Controller
