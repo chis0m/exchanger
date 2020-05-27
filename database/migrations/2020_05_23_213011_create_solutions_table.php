@@ -15,7 +15,8 @@ class CreateSolutionsTable extends Migration
     {
         Schema::create('solutions', function (Blueprint $table) {
             $table->id();
-            $table->text('error');
+            $table->text('error')->nullable();
+            $table->text('question')->nullable();
             $table->text('solution');
             $table->string('image_url')->nullable();
             $table->string('web_url')->nullable();
