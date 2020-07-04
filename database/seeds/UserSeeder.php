@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
+        // User::truncate();
         DB::table('users')->insert([
             'name' => 'chisom',
             'email' => 'chisom.e@credpal.com',

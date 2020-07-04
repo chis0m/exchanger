@@ -4,38 +4,60 @@
 namespace App\Http\Controllers\User;
 
 
-use Auth;
-use App\User;
-use App\Traits\Jwt;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use App\Traits\CustomResponse;
+use Illuminate\Http\Request;
+use App\Traits\Jwt;
+use Exception;
+use App\User;
+use Auth;
 
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers, Jwt, ApiResponse;
+    use AuthenticatesUsers, Jwt, CustomResponse;
 
     protected $model = 'User';
     protected $resource = 'Auth';
 
     public function login(Request $request)
     {
-        $validation = [
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string']
-        ];
-        $invalid_credentials = $this->handleValidation($validation);
-        if ($invalid_credentials){
-            return $invalid_credentials;
-        }
-        $credentials = request(['email', 'password']);
+        try {
 
-        if (! $token = auth()->attempt($credentials)) {
-            return $this->error('Unauthorized. Check Credentials', 401);
+            $validation = [
+                'email' => ['required', 'string', 'email', 'max:255'],
+                'password' => ['required', 'string']
+            ];
+    
+            $validator = Validator::make(request()->all(),  $validation);
+        
+            if($validator->fails()){
+    
+                return $this->form_errors($validator->errors()->toArray());
+    
+            }
+    
+            $credentials = request(['email', 'password']);
+    
+            if (! $token = auth()->attempt($credentials)) {
+    
+                throw new Exception('Unauthorized. Check Credentials');
+    
+            }
+    
+            return $this->success('Login Successful', [
+                'data' => $this->getTokenFromUserObject(),
+            ], Response::HTTP_ACCEPTED);    
+            
+        } catch (Exception $e) {
+
+            return $this->exception($e);
+
         }
-        return $this->success($this->getTokenFromOtherAttributes(), 200, $this->resource);
+    
     }
 
     public function logout()
@@ -45,6 +67,7 @@ class LoginController extends Controller
     }
 
     public function all(){
+
         $user = User::all();
         return $user;
     }
