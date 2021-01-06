@@ -14,8 +14,8 @@ class UserSeeder extends Seeder
     {
         // User::truncate();
         DB::table('users')->insert([
-            'name' => 'chisom',
-            'email' => 'chisom.e@credpal.com',
+            'name' => 'exchanger',
+            'email' => 'exchanger@credpal.com',
             'password' => bcrypt('password'),
         ]);
     }

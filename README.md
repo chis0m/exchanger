@@ -21,25 +21,53 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-# api-server
 
-## How to use
+## Exchanger
 
-### Initialize the server like so
+This repository holds Exchanger backend codebase.
 
-```bash
-cd <project-directory>
-composer install
-php artisan jwt:secret
-```
+## Prerequisites
 
-###  To add more users
+- Follow this [link](https://laravel.com/docs/8.x/installation#server-requirements) for basic setup
+- Follow this [link](https://medium.com/@setkyarwalar/setting-up-phpcs-on-laravel-908bccb82db) to setup PHPCS
+- Follow this [link](https://github.com/nunomaduro/larastan) to setup PHPStan
 
-Goto **config/auth.php** file and add the _user type e.g sub-admin_ to **guards, providers, passwords** array exactly as seen
+## Start up
 
-Goto **routes/api.php** file and add the appropriate route -- _you can duplicate and edit existing ones_
+To start corporate loans, perform the following step in the order
 
-_Optional_ -- Create api resource for the type of user _e.g Resources/SubAdmin_
+- Clone the repository by running the command 'git clone https://github.com/crednet/corporate-loans.git'
+- Run composer install --ignore-platform-reqs
+- Run 'cp .env.example .env'
+- Fill your configuration settings in the '.env' file you created above
+- Run 'php artisan key:generate'
+- Run php artisan jwt:secret
+- Run 'php artisan migrate --seed'
+- Run 'php artisan serve' to startup the application
+
+
+## For development
+
+To maintain quality, maintainability, reliability, security and uniform coding standards on this codebase, I ran the codebase against a static analysis tools, our choise are PHP Code Sniffer (PHPCS) and PHPStan, and I wrote tests.
+
+- PHPCS  allows a set of rules or a standard to be applied to your codebase, it also helps detect violations of pre-defined coding standards. The good is, it includes an additional tool that can automatically correct those violations
+
+- PHPStan focuses on finding errors in your code without actually running it. It catches whole classes of bugs even before you write tests for the code. It moves PHP closer to compiled languages in the sense that the correctness of each line of the code can be checked before you run the actual line.
+
+## During Development
+
+1. To collaborate in the project, create a branch from the *develop* after development.
+
+2. Run './vendor/bin/phpstan analyse', to analyse the entire codebase OR './vendor/bin/phpstan analyse /path/to/folder' to analyse a particular folder OR './vendor/bin/phpstan analyse /path/to/file.php' to analyse a particular file  against PHPStan. Fix any errors that show up until you have a green stipe with '[OK] No errors' written on it.
+
+3. Run './vendor/bin/phpcs', to analyse the entire codebase OR './vendor/bin/phpcs /path/to/folder' to analyse a particular folder OR './vendor/bin/phpcs /path/to/file.php' to analyse a particular file  against PHPStan. Fix any errors that show up until you have a clean slate of 100%.
+
+4. Run 'php artisan test' to run all your test and make sure they pass.
+
+5. When you are done with PHPstan, PHPCS and Test and everything works fine, please, go ahead and raise a pull request (PR), with *develop* as the target branch.
+
+6. Congratulations!
+
 
 ### Modules and Packages
 
