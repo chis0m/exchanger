@@ -34,9 +34,9 @@ This repository holds Exchanger backend codebase.
 
 ## Start up
 
-To start corporate loans, perform the following step in the order
+To start Exchanger, perform the following step in the order
 
-- Clone the repository by running the command 'git clone https://github.com/crednet/corporate-loans.git'
+- Clone the repository by running the command 'git clone https://github.com/chis0m/exchanger.git'
 - Run composer install --ignore-platform-reqs
 - Run 'cp .env.example .env'
 - Fill your configuration settings in the '.env' file you created above
@@ -66,25 +66,24 @@ To maintain quality, maintainability, reliability, security and uniform coding s
 
 5. When you are done with PHPstan, PHPCS and Test and everything works fine, please, go ahead and raise a pull request (PR), with *develop* as the target branch.
 
-6. Note: If you are ona unix-based system, you can add the following to *.bashrc* or *.zshrc* as the case may be.
+6. Note: If you are on a unix-based system, you can add the following to *.bashrc* or *.zshrc* as the case may be.
 
 > 
 * alias phpunit="vendor/bin/phpunit"
 * alias phpstan="./vendor/bin/phpstan analyse --memory-limit=2G"
 * alias phpcs="./vendor/bin/phpcs app/"
-* alias phpcbf="./vendor/bin/phpcs app/"
+* alias phpcbf="./vendor/bin/phpcbf app/"
 
 This will enable you to run in your laravel project:
 >
-	"phpunit" for phpunit test coverage
-	"phpstan" for phpstan analyser
-	"phpcs" for phpcs codesniffer
-	"phpcs" for phpcs codesniffer fix 
-
+	"phpunit" instead of 'vendor/bin/phpunit'
+	"phpstan" instead of './vendor/bin/phpstan analyse --memory-limit=2G
+	"phpcs" instead of './vendor/bin/phpcs app/'
+	"phpcbf" instead of './vendor/bin/phpcbf app/'
 
 
 ## Test
-1. create a database **exchanger_test** database as contained in .env.testing file. **Note**: I am using mysql instead sqlite for test because it has better features. You can see more here: [why mysql is better at test](https://owenconti.com/posts/improve-performance-laravel-feature-tests-using-mysql-instead-of-sqlite-or-memory-databases/) 
+1. create a database **exchanger_test** database as contained in .env.testing file. **Note**: I am using mysql instead of sqlite because it is more stable for testing. You can see more here: [why mysql is better at test](https://owenconti.com/posts/improve-performance-laravel-feature-tests-using-mysql-instead-of-sqlite-or-memory-databases/) 
 2. grant permissions accordingly
 3. Run **vendor/bin/phpunit** or just **phpunit** (if you added the above to your shell)
 
