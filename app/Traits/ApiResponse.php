@@ -7,7 +7,7 @@ use Exception;
 
 trait ApiResponse
 {
-    public function success(string $message = "Successful", array $data, int $statusCode = Response::HTTP_OK)
+    public function success(string $message = "Successful", array $data = [], int $statusCode = Response::HTTP_OK)
     {
         $response = [
             "success" => true,
@@ -49,7 +49,8 @@ trait ApiResponse
         return response()->json($response, $statusCode);
     }
 
-    public function respond(Exception $e){
+    public function respond(Exception $e)
+    {
         $trace = [
             'file' => $e->getFile(),
             'line' => $e->getLine(),
@@ -57,11 +58,9 @@ trait ApiResponse
             'time' => \Carbon\Carbon::now()->toDayDateTimeString(),
         ];
         $code = ($e->getCode()) ? $e->getCode() : 500;
-        if($code < 500){
+        if ($code < 500) {
             return $this->error(null, $e->getMessage(), $code);
         }
         return $this->fatalError($e);
     }
-
-
 }

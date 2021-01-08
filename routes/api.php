@@ -25,7 +25,7 @@ Route::group(['namespace' => 'User'], function () {
         //jwt.auth will check for validation of jwt token
         Route::group(['middleware' => ['jwt.auth']],function ()
         {
-            
+            Route::get('show', 'RegisterController@show');
         });
     
     });

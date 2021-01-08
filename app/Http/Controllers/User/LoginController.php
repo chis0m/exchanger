@@ -35,7 +35,6 @@ class LoginController extends Controller
     public function logout()
     {
         auth()->logout();
-        return $this->success('Logout successful',[], 200);
+        return $this->success('Logout successful', [], 200);
     }
-
 }
