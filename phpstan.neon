@@ -12,8 +12,8 @@ parameters:
         - routes
         - tests
 
-    #ignoreErrors:
-
+    ignoreErrors:
+        - '#Call to an undefined static method [a-zA-Z0-9\\_]+::rollback\(\)#'
     excludes_analyse:
         - database/*
         - public/*

@@ -66,7 +66,27 @@ To maintain quality, maintainability, reliability, security and uniform coding s
 
 5. When you are done with PHPstan, PHPCS and Test and everything works fine, please, go ahead and raise a pull request (PR), with *develop* as the target branch.
 
-6. Congratulations!
+6. Note: If you are ona unix-based system, you can add the following to *.bashrc* or *.zshrc* as the case may be.
+
+> 
+* alias phpunit="vendor/bin/phpunit"
+* alias phpstan="./vendor/bin/phpstan analyse --memory-limit=2G"
+* alias phpcs="./vendor/bin/phpcs app/"
+* alias phpcbf="./vendor/bin/phpcs app/"
+
+This will enable you to run in your laravel project:
+>
+	"phpunit" for phpunit test coverage
+	"phpstan" for phpstan analyser
+	"phpcs" for phpcs codesniffer
+	"phpcs" for phpcs codesniffer fix 
+
+
+
+## Test
+1. create a database **exchanger_test** database as contained in .env.testing file. **Note**: I am using mysql instead sqlite for test because it has better features. You can see more here: [why mysql is better at test](https://owenconti.com/posts/improve-performance-laravel-feature-tests-using-mysql-instead-of-sqlite-or-memory-databases/) 
+2. grant permissions accordingly
+3. Run **vendor/bin/phpunit** or just **phpunit** (if you added the above to your shell)
 
 
 ### Modules and Packages
