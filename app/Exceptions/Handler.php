@@ -53,34 +53,35 @@ class Handler extends ExceptionHandler
      * @param  \Illuminate\Http\Request  $request
      * @param  \Throwable  $exception
      * @return \Symfony\Component\HttpFoundation\Response
-     * @method \App\Traits\ApiResponse
      * @throws \Throwable
      */
     public function render($request, Throwable $exception)
-    {  
+    {
         if ($exception instanceof NotFoundHttpException) {
             return $this->error('Route Not Found', $exception->getStatusCode());
-        } 
+        }
         if ($exception instanceof MethodNotAllowedHttpException) {
             return $this->error($exception->getMessage(), $exception->getStatusCode());
-        } 
+        }
 
         if ($exception instanceof ModelNotFoundException) {
-            return $this->error('Resource for '.str_replace('App\\', '', $exception->getModel()).' not found', $exception->getStatusCode());
+            return $this
+            ->error('Resource for ' . str_replace('App\\', '', $exception->getModel()) . ' not found', 500);
         }
 
         if ($exception instanceof UnauthorizedHttpException) {
             $preException = $exception->getPrevious();
             if ($preException instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
                 return $this->error('UNAUTHENTICATED, TOKEN_EXPIRED', 401);
-            } else if ($preException instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+            } elseif ($preException instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
                 return $this->error('UNAUTHENTICATED, TOKEN_INVALID', 401);
-            } else if ($preException instanceof \Tymon\JWTAuth\Exceptions\TokenBlacklistedException) {
+                /** @phpstan-ignore-next-line */
+            } elseif ($preException instanceof \Tymon\JWTAuth\Exceptions\TokenBlacklistedException) {
                 return $this->error('UNAUTHENTICATED, TOKEN_BLACKLISTED', 401);
-           }
-           if ($exception->getMessage() === 'Token not provided') {
+            }
+            if ($exception->getMessage() === 'Token not provided') {
                 return $this->error('UNAUTHENTICATED, TOKEN_NOT_PROVIDED', 401);
-           }
+            }
         }
 
         return parent::render($request, $exception);

@@ -2,13 +2,12 @@
 
 namespace App\Traits;
 
-
 trait Helper
 {
-    public function array_to_model($array, $model)
+    public function arrayToModel($array, $model)
     {
-        $model_absolute_path = 'App\\'.$model;
-        $object = new $model_absolute_path();
+        $modelAbsolutePath = 'App\\' . $model;
+        $object = new $modelAbsolutePath();
         $object->fill($array);
         return $object;
     }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+
 use App\Traits\User as UserTrait;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
@@ -9,7 +10,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable implements JWTSubject
 {
-    use Notifiable, UserTrait;
+    use Notifiable;
+    use UserTrait;
+
         /**
      * The attributes that are mass assignable.
      *
@@ -36,4 +39,5 @@ class Admin extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 }

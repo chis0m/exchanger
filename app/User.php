@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+
 use App\Traits\User as UserTrait;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -9,7 +10,9 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, UserTrait;
+    use Notifiable;
+    use UserTrait;
+
         /**
      * The attributes that are mass assignable.
      *
@@ -37,16 +40,15 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    public function roles()
+    {
 
-    public function roles() {
-  
-        return $this->belongsToMany('App\Role', 'role_user');
-
+        return $this->belongsToMany('App\Models\Role', 'role_user');
     }
 
-    public function attachRole($role_id) {
+    public function attachRole($roleId)
+    {
 
-        return $this->roles()->attach($role_id);
-
+        return $this->roles()->attach($roleId);
     }
 }

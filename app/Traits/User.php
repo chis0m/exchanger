@@ -3,7 +3,7 @@
 namespace App\Traits;
 
 /**
- * 
+ *
  */
 trait User
 {

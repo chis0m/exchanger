@@ -1,46 +1,39 @@
 <?php
 
-
 namespace App\Http\Controllers\Admin;
 
-
-use Auth;
-use App\Traits\Jwt;
-// use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Requests\Auth\Login as LoginRequest;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Traits\ApiResponse;
+use Exception;
+use Admin;
+use Auth;
 
 class LoginController extends Controller
 {
+    use AuthenticatesUsers;
+    use ApiResponse;
 
-    use AuthenticatesUsers, Jwt;
-
-    protected $model = 'Admin';
-
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $validation = [
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string']
-        ];
-        $invalid_credentials = $this->handleValidation($validation);
-        if ($invalid_credentials){
-            return $invalid_credentials;
+        try {
+            $credentials = request(['email', 'password']);
+            if (! $token = auth()->attempt($credentials)) {
+                throw new Exception('Unauthorized. Check Credentials', 401);
+            }
+            $data = $this->respondWithToken($token);
+            return $this->success('Login Successful', $data, Response::HTTP_ACCEPTED);
+        } catch (Exception $e) {
+            return $this->respond($e);
         }
-        $credentials = request(['email', 'password']);
-
-        if (! $token = auth()->attempt($credentials)) {
-            return $this->error('Unauthorized. Check Credentials', 401);
-        }
-
-        return $this->getTokenFromOtherAttributes();
     }
 
     public function logout()
     {
         auth()->logout();
-        return response()->json(['message' => 'Successfully logged out']);
+        return $this->success('Logout successful',[], 200);
     }
 }
-

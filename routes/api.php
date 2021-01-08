@@ -14,38 +14,44 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function(){
-    return response(["message" => "Welcome to reporde"]);
+    return response(["message" => "Welcome to exchanger"]);
 });
 
 //Authenticated as User
-Route::prefix('user')->namespace('User')->middleware('assign.guard:users')->group(function(){
-    Route::post('/register', 'RegisterController@create');
-    Route::post('/login', 'LoginController@login');
-    Route::group(['middleware' => ['jwt.auth']],function ()
-    {
-        // Route Here
+Route::group(['namespace' => 'User'], function () {
+    Route::group(['prefix' => 'user', 'middleware' => 'assign.guard:users'], function(){
+        Route::post('register', 'RegisterController@create');
+        Route::post('login', 'LoginController@login');
+        //jwt.auth will check for validation of jwt token
+        Route::group(['middleware' => ['jwt.auth']],function ()
+        {
+            
+        });
+    
     });
-
 });
 
 
 //Authenticated as Admin
-Route::prefix('admin')->namespace('Admin')->middleware('assign.guard:admins')->group(function(){
-    Route::post('/create', 'RegisterController@register');
-    Route::post('/login', 'LoginController@login');
-    Route::group(['middleware' => ['jwt.auth']],function ()
-    {
-        // Route Here;	
+Route::group(['namespace' => 'Admin'], function () {
+    Route::group(['prefix' => 'admin', 'middleware' => 'assign.guard:admins'], function(){
+        Route::post('register', 'RegisterController@create');
+        Route::post('login', 'LoginController@login');
+        Route::group(['middleware' => ['jwt.auth']],function ()
+        {
+            // Route Here
+        });
+    
     });
-
 });
 
 
+
 //General route but Authenticated
-Route::group(['prefix' => 'auth','middleware' => ['jwt.auth']],function ()
+//api.auth will check against all guards
+Route::group(['prefix' => 'user','middleware' => ['api.auth']],function ()
 {
     // Route Here;	
-
 });
 
 
