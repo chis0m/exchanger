@@ -15,7 +15,7 @@ class AdminSeeder extends Seeder
         Admin::truncate();
         DB::table('admins')->insert([
             'name' => 'admin',
-            'email' => 'admin@credpal.com',
+            'email' => 'admin@exchanger.com',
             'password' => bcrypt('password'),
         ]);
     }
