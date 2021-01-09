@@ -17,19 +17,20 @@ jobs:
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: exchanger_test
+          MYSQL_USER: 'exchange_user'
         ports:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-    - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
+    - uses: shivammathur/setup-php@v2
       with:
         php-version: '7.3'
     - uses: actions/checkout@v1
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-reqs
+    - name: Install composer Dependencies
+      run: composer install --no-progress --prefer-dist --optimize-autoloader
     - name: setup environment
-      run: cp .env.ci .env
+      run: cp .env.testing .env
     - name: Generate key
       run: php artisan key:generate
     - name: Directory Permissions
@@ -37,6 +38,6 @@ jobs:
     - name: Execute command for PHPCS
       run: vendor/bin/phpcs
     - name: Execute Command for PHPStan
-      run: vendor/bin/phpstan analyse
+      run: vendor/bin/phpstan analyse --memory-limit=2G
     - name: Execute tests (Unit and Feature tests) using PHPUnit
       run: vendor/bin/phpunit
