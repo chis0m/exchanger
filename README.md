@@ -64,9 +64,11 @@ To maintain quality, maintainability, reliability, security and uniform coding s
 
 4. Run 'php artisan test' to run all your test and make sure they pass.
 
-5. When you are done with PHPstan, PHPCS and Test and everything works fine, please, go ahead and raise a pull request (PR), with *develop* as the target branch. For Every push github actions runs the test
+5. When you are done with PHPstan, PHPCS and Test and everything works fine, please, go ahead and raise a pull request (PR), with *develop* as the target branch. 
 
-6. Congratulations
+6. For Every push to the github repo, a Continous integration process is triggered
+
+7. Congratulations
 
 
 ## Test
