@@ -16,7 +16,7 @@ class UserService
         $email = $request['email'] ? $request['email'] : $user['email'];
         $phoneNo = $request['phone_no'] ? $request['phone_no'] : $user['phone_no'];
         $country = $request['country'] ? $request['country'] : $user['country'];
-        $baseCurrency = $request['base_currency'] ? $request['base_currency'] : $user['base_currency'];
+        $baseCurrencyId = $request['base_currency_id'] ? $request['base_currency_id'] : $user['base_currency_id'];
 
         $data = User::updateOrCreate(
             ['id' => auth()->id()],
@@ -26,9 +26,10 @@ class UserService
                 'email' => $email,
                 'phone_no' => $phoneNo,
                 'country' => $country,
-                'base_currency' => strtoupper($baseCurrency),
+                'base_currency_id' => $baseCurrencyId
             ]
         );
+        \Log::info('hello');
         return $data;
     }
 }

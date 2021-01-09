@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('phone_no')->nullable();
             $table->string('country')->nullable();
-            $table->string('base_currency')->nullable();
+            $table->foreignId('base_currency_id')->nullable()->references('id')->on('currencies');
             $table->dateTime('first_login')->nullable();
             $table->rememberToken();
             $table->timestamps();

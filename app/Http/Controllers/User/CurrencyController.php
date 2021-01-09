@@ -46,4 +46,10 @@ class CurrencyController extends Controller
             return $this->respond($e);
         }
     }
+
+    public function get()
+    {
+        $data = $this->currencyservice->get()->toArray();
+        return $this->success('Currency Threshold Updated Successfully', $data, Response::HTTP_OK);
+    }
 }

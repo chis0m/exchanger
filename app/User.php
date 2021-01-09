@@ -19,7 +19,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'phone_no', 'country', 'base_currency', 'first_login'
+        'first_name', 'last_name', 'email', 'password', 'phone_no', 'country', 'base_currency_id', 'first_login'
     ];
 
     /**
@@ -43,5 +43,10 @@ class User extends Authenticatable implements JWTSubject
     public function threshold()
     {
         return $this->hasMany('App\Models\CurrencyThreshold');
+    }
+
+    public function baseCurrency()
+    {
+        return $this->belongsTo('App\Models\Currency', 'base_currency_id');
     }
 }

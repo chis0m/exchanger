@@ -20,4 +20,9 @@ class CurrencyThreshold extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function currency()
+    {
+        return $this->belongsTo('App\Models\Currency', 'target_currency_id');
+    }
 }

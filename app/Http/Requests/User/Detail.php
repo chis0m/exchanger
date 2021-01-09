@@ -6,6 +6,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Configuration;
+use App\Models\Currency;
 
 class Detail extends FormRequest
 {
@@ -27,17 +28,18 @@ class Detail extends FormRequest
     public function rules()
     {
         $numberOfCurrency = $this->getConfiguration();
+        $allowedCurrency = $this->getAllowedCurrency('EUR');
         if ($numberOfCurrency == Configuration::RANGE[2]) {
-            $baseCurrencyValidation = ['nullable', 'string', 'max:4', 'min:3'];
+            $baseCurrencyValidation = ['nullable', 'exists:currencies,id'];
         } else {
-            $baseCurrencyValidation = ['nullable', 'string', 'max:4', 'min:3', 'in:EUR,eur'];
+            $baseCurrencyValidation = ['nullable', 'exists:currencies,id', 'in:' . $allowedCurrency->id];
         }
         return [
             'first_name' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z\-\.]+$/'],
             'last_name' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z\-\.]+$/'],
             'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users,email,' . $this->user()->id],
             'phone' => ['nullable', 'string', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:10'],
-            'base_currency' => $baseCurrencyValidation,
+            'base_currency_id' => $baseCurrencyValidation,
             'country' => ['nullable', 'string', 'max:255'],
         ];
     }
@@ -45,9 +47,10 @@ class Detail extends FormRequest
     public function messages()
     {
         $numberOfCurrency = $this->getConfiguration();
+         $allowedCurrency = $this->getAllowedCurrency('EUR');
         if ($numberOfCurrency != Configuration::RANGE[2]) {
             return [
-                'base_currency.in' => 'Only EUR is allowed',
+                'base_currency_id.in' => 'Only ' . $allowedCurrency->symbol . ' is allowed',
             ];
         } else {
             return [];
@@ -63,6 +66,11 @@ class Detail extends FormRequest
               'data' => $validator->errors()->toArray()
             ], 422)
         );
+    }
+
+    public function getAllowedCurrency($symbol)
+    {
+        return Currency::whereSymbol($symbol)->first();
     }
 
     public function getConfiguration()

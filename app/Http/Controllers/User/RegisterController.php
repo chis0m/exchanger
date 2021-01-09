@@ -28,13 +28,12 @@ class RegisterController extends Controller
                 'last_name' => $request['last_name'],
                 'email' => $request['email'],
                 'first_login' => null,
-                'base_currency' => null,
+                'base_currency_id' => null,
                 'password' => Hash::make($request['password']),
             ]);
 
             $token = auth()->login($user);
             $data = $this->respondWithToken($token);
-
             DB::commit();
             return $this->success('Registration Successful', $data, Response::HTTP_CREATED);
         } catch (Exception $e) {

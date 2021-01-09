@@ -27,20 +27,18 @@ class Threshold extends FormRequest
     public function rules()
     {
         return [
-                'target_currency' => ['required', 'string', 'min:3',
-                'unique:currency_thresholds,target_currency,NULL,id,user_id,' . Auth::id(),
-                'max:4', 'regex:/^[a-zA-Z\-\.]+$/'
-                ],
-                'currency_name' => ['nullable', 'string', 'max:12', 'regex:/^[a-zA-Z\-]+$/'],
-                'threshold_number' => ['required', 'numeric'],
-                'condition' => ['required', 'in:greater_than,less_than,equal_to'],
+            'target_currency_id' => ['required', 'exists:currencies,id',
+            'unique:currency_thresholds,target_currency_id,NULL,id,user_id,' . Auth::id()
+            ],
+            'threshold_number' => ['required', 'numeric'],
+            'condition' => ['required', 'in:greater_than,less_than,equal_to'],
         ];
     }
 
     public function messages()
     {
         return [
-                'target_currency.unique' => 'The target currency has already been taken by you',
+            'target_currency_id.unique' => 'The target currency has already been taken by you',
         ];
     }
 

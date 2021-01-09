@@ -27,20 +27,18 @@ class UpdateThreshold extends FormRequest
     public function rules()
     {
         return [
-                'target_currency' => ['nullable', 'string', 'min:3',
-                'unique:currency_thresholds,target_currency,' . request()->route('id') . ',id,user_id,' . Auth::id(),
-                'max:4', 'regex:/^[a-zA-Z\-\.]+$/'
-                ],
-                'currency_name' => ['nullable', 'string', 'max:12', 'regex:/^[a-zA-Z\-]+$/'],
-                'threshold_number' => ['nullable', 'numeric'],
-                'condition' => ['nullable', 'in:greater_than,less_than,equal_to'],
+            'target_currency_id' => ['nullable', 'exists:currencies,id',
+            'unique:currency_thresholds,target_currency_id,' . request()->route('id') . ',id,user_id,' . Auth::id()
+            ],
+            'threshold_number' => ['nullable', 'numeric'],
+            'condition' => ['nullable', 'in:greater_than,less_than,equal_to'],
         ];
     }
 
     public function messages()
     {
         return [
-                'target_currency.unique' => 'The target currency has already been taken by you',
+                'target_currency_id.unique' => 'The target currency has already been taken by you',
         ];
     }
 

@@ -28,6 +28,7 @@ Route::group(['namespace' => 'User'], function () {
             Route::post('update', 'UserController@update');
 
             Route::group(['prefix' => 'currency'], function(){
+                Route::get('/', 'CurrencyController@get');
                 Route::post('/', 'CurrencyController@createThreshold');
                 Route::post('{id}', 'CurrencyController@updateThreshold');
                 Route::delete('{id}', 'CurrencyController@destroy');

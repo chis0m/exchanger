@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'first_name' => 'user',
             'last_name' => 'user',
-            'base_currency' => 'EUR' ,
+            'base_currency_id' => null,
             'email' => 'user@exchanger.com',
             'password' => bcrypt('password'),
         ]);

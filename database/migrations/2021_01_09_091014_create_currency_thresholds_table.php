@@ -16,8 +16,7 @@ class CreateCurrencyThresholdsTable extends Migration
         Schema::create('currency_thresholds', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('target_currency');
-            $table->string('currency_name')->nullable();
+            $table->string('target_currency_id')->references('id')->on('currencies')->onDelete('cascade');
             $table->decimal('threshold_number', 15,2);
             $table->string('condition');
             $table->boolean('alert')->default(1);
