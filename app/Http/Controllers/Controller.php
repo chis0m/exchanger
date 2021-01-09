@@ -8,7 +8,6 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Tymon\JWTAuth\Claims\Issuer;
 use App\Traits\ApiResponse;
-use App\User;
 use JWTAuth;
 use Auth;
 

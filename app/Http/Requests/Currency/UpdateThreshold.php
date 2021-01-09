@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Currency;
 
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Auth;
 
-class Register extends FormRequest
+class UpdateThreshold extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +27,20 @@ class Register extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\-\.]+$/'],
-            'last_name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\-\.]+$/'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:6']
+                'target_currency' => ['nullable', 'string', 'min:3',
+                'unique:currency_thresholds,target_currency,' . request()->route('id') . ',id,user_id,' . Auth::id(),
+                'max:4', 'regex:/^[a-zA-Z\-\.]+$/'
+                ],
+                'currency_name' => ['nullable', 'string', 'max:12', 'regex:/^[a-zA-Z\-]+$/'],
+                'threshold_number' => ['nullable', 'numeric'],
+                'condition' => ['nullable', 'in:greater_than,less_than,equal_to'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+                'target_currency.unique' => 'The target currency has already been taken by you',
         ];
     }
 

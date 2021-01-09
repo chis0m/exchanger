@@ -59,7 +59,7 @@ trait ApiResponse
         ];
         $code = ($e->getCode()) ? $e->getCode() : 500;
         if ($code < 500) {
-            return $this->error(null, $e->getMessage(), $code);
+            return $this->error($e->getMessage(), $code, null);
         }
         return $this->fatalError($e);
     }

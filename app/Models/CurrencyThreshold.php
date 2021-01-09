@@ -8,6 +8,8 @@ class CurrencyThreshold extends Model
 {
     protected $guarded = [];
 
+    protected $table = 'currency_thresholds';
+
     public const CONDITION = [
         1 => 'greater_than',
         2 => 'less_than',

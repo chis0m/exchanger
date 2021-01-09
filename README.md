@@ -1,7 +1,5 @@
 # Exchanger
 
-![Continous-Integration-for-Exchanger](https://github.com/chis0m/exchanger/workflows/Continous-Integration-for-Exchanger/badge.svg)
-
 This repository holds Exchanger backend codebase.
 
 ## Prerequisites
@@ -44,9 +42,7 @@ To maintain quality, maintainability, reliability, security and uniform coding s
 
 5. When you are done with PHPstan, PHPCS and Test and everything works fine, please, go ahead and raise a pull request (PR), with *develop* as the target branch. 
 
-6. For Every push to the github repo, a Continous integration process is triggered
-
-7. Congratulations
+6. Congratulations
 
 
 ## Test

@@ -25,7 +25,13 @@ Route::group(['namespace' => 'User'], function () {
         //jwt.auth will check for validation of jwt token
         Route::group(['middleware' => ['jwt.auth']],function ()
         {
-            Route::get('show', 'RegisterController@show');
+            Route::post('update', 'UserController@update');
+
+            Route::group(['prefix' => 'currency'], function(){
+                Route::post('/', 'CurrencyController@createThreshold');
+                Route::post('{id}', 'CurrencyController@updateThreshold');
+                Route::delete('{id}', 'CurrencyController@destroy');
+            });
         });
     
     });

@@ -14,7 +14,9 @@ class UserSeeder extends Seeder
     {
         // User::truncate();
         DB::table('users')->insert([
-            'name' => 'user',
+            'first_name' => 'user',
+            'last_name' => 'user',
+            'base_currency' => 'EUR' ,
             'email' => 'user@exchanger.com',
             'password' => bcrypt('password'),
         ]);

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCurrencyThresholdTable extends Migration
+class CreateConfigurationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateCurrencyThresholdTable extends Migration
      */
     public function up()
     {
-        Schema::create('currency_threshold', function (Blueprint $table) {
+        Schema::create('configurations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->references('id')->on('users')->onDelete('cascade');
-            $table->string('quote_currency');
-            $table->decimal('threshold_amount', 15,2);
-            $table->string('condition');
+            $table->string('title');
+            $table->string('slug');
+            $table->string('value');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateCurrencyThresholdTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('currency_threshold');
+        Schema::dropIfExists('configurations');
     }
 }

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Traits\ApiResponse;
 use App\User;
+use Exception;
 use DB;
 
 class RegisterController extends Controller
@@ -23,16 +24,20 @@ class RegisterController extends Controller
         try {
             DB::beginTransaction();
             $user = User::create([
-                'name' => $request['name'],
+                'first_name' => $request['first_name'],
+                'last_name' => $request['last_name'],
                 'email' => $request['email'],
+                'first_login' => null,
+                'base_currency' => null,
                 'password' => Hash::make($request['password']),
             ]);
 
             $token = auth()->login($user);
             $data = $this->respondWithToken($token);
+
             DB::commit();
             return $this->success('Registration Successful', $data, Response::HTTP_CREATED);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollback();
             return $this->respond($e);
         }
