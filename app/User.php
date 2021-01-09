@@ -2,11 +2,11 @@
 
 namespace App;
 
-use App\Traits\User as UserTrait;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Traits\User as UserTrait;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -19,7 +19,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'phone_no', 'country', 'base_currency', 'first_login'
     ];
 
     /**
@@ -39,4 +39,9 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function thresholds()
+    {
+        return $this->hasMany('App\Models\CurrencyThreshold');
+    }
 }

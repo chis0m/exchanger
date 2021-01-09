@@ -64,22 +64,9 @@ To maintain quality, maintainability, reliability, security and uniform coding s
 
 4. Run 'php artisan test' to run all your test and make sure they pass.
 
-5. When you are done with PHPstan, PHPCS and Test and everything works fine, please, go ahead and raise a pull request (PR), with *develop* as the target branch.
+5. When you are done with PHPstan, PHPCS and Test and everything works fine, please, go ahead and raise a pull request (PR), with *develop* as the target branch. For Every push github actions runs the test
 
-6. Note: If you are on a unix-based system, you can add the following to *.bashrc* or *.zshrc* as the case may be.
-
-> 
-* alias phpunit="vendor/bin/phpunit"
-* alias phpstan="./vendor/bin/phpstan analyse --memory-limit=2G"
-* alias phpcs="./vendor/bin/phpcs app/"
-* alias phpcbf="./vendor/bin/phpcbf app/"
-
-This will enable you to run in your laravel project:
->
-	"phpunit" instead of 'vendor/bin/phpunit'
-	"phpstan" instead of './vendor/bin/phpstan analyse --memory-limit=2G
-	"phpcs" instead of './vendor/bin/phpcs app/'
-	"phpcbf" instead of './vendor/bin/phpcbf app/'
+6. Congratulations
 
 
 ## Test
