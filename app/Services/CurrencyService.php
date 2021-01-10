@@ -11,6 +11,12 @@ use App\User;
 class CurrencyService
 {
 
+
+    public function getCurrencies()
+    {
+        return Currency::all()->toArray();
+    }
+
     public function populateCurrencyTable()
     {
         $currenciesFromRemote = (new ExchangeAdapter())->getCurrencies();
@@ -20,6 +26,13 @@ class CurrencyService
                 ['title' => $value]
             );
         }
+    }
+
+    public function getLatestExchangeRate($baseCurrencyId)
+    {
+        $symbol = Currency::find($baseCurrencyId)->symbol;
+        $latestRate = (new ExchangeAdapter())->getLatestExchangeRate($symbol);
+        return $latestRate;
     }
 
 
@@ -32,7 +45,7 @@ class CurrencyService
         if ($user['base_currency_id'] == $request['target_currency_id']) {
             throw new Exception("Base currency can't be the same with target currency", 422);
         }
-        $data = $user->threshold()->create($request->validated());
+        $data = $user->thresholds()->create($request->validated());
         return $data;
     }
 

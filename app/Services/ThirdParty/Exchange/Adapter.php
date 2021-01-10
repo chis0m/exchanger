@@ -7,15 +7,22 @@ use Exception;
 
 class Adapter
 {
+    private $provider;
+
+    public function __construct()
+    {
+        $this->provider = $this->getExchangeProvider() ?? 'fixer';
+    }
 
     public function getCurrencies()
     {
         try {
-            $provider = $this->getExchangeProvider();
             $result = null;
-            switch ($provider) {
+            switch ($this->provider) {
                 case 'fixer':
                     $result =  (new FixerSocket())->getCurrencySymbols();
+                    break;
+                case 'anohter_provider':
                     break;
                 default:
                     $result = null;
@@ -28,8 +35,30 @@ class Adapter
         }
     }
 
+
+    public function getLatestExchangeRate($symbol)
+    {
+        try {
+            $result = null;
+            switch ($this->provider) {
+                case 'fixer':
+                    $result =  (new FixerSocket())->getLatestExchangeRate($symbol);
+                    break;
+                case 'anohter_provider':
+                    break;
+                default:
+                    $result = null;
+                    break;
+            }
+            return $result;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+
     public function getExchangeProvider()
     {
-        return Configuration::whereSlug('currency_exchange_provider')->first()['value'];
+        return Configuration::config('currency_exchange_provider');
     }
 }

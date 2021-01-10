@@ -49,7 +49,7 @@ class CurrencyController extends Controller
 
     public function get()
     {
-        $data = $this->currencyservice->get()->toArray();
+        $data = $this->currencyservice->getCurrencies();
         return $this->success('Currency Threshold Updated Successfully', $data, Response::HTTP_OK);
     }
 }

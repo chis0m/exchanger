@@ -40,7 +40,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function threshold()
+    public function thresholds()
     {
         return $this->hasMany('App\Models\CurrencyThreshold');
     }
@@ -48,5 +48,10 @@ class User extends Authenticatable implements JWTSubject
     public function baseCurrency()
     {
         return $this->belongsTo('App\Models\Currency', 'base_currency_id');
+    }
+
+    public function scopeHavingThreshold($query)
+    {
+        return $query->whereHas('thresholds')->get();
     }
 }

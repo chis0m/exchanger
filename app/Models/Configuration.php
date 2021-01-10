@@ -12,4 +12,9 @@ class Configuration extends Model
         1 => 'one',
         2 => 'any'
     ];
+
+    public function scopeConfig($query, $slug)
+    {
+        return $query->whereSlug($slug)->first()->value;
+    }
 }

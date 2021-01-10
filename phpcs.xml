@@ -40,8 +40,8 @@
     -->
     <rule ref="Generic.Metrics.NestingLevel">
         <properties>
-            <property name="nestingLevel" value="3"/>
-            <property name="absoluteNestingLevel" value="5"/>
+            <property name="nestingLevel" value="7"/>
+            <property name="absoluteNestingLevel" value="7"/>
         </properties>
     </rule>
     <rule ref="Generic.Files.LineLength">

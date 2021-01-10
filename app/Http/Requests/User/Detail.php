@@ -75,6 +75,6 @@ class Detail extends FormRequest
 
     public function getConfiguration()
     {
-        return Configuration::whereSlug('number_of_currencies')->first()['value'];
+        return Configuration::config('number_of_currencies');
     }
 }

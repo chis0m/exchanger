@@ -7,7 +7,7 @@ use Exception;
 
 trait ApiResponse
 {
-    public function success(string $message = "Successful", array $data = [], int $statusCode = Response::HTTP_OK)
+    public function success(string $message = "Successful", $data = [], int $statusCode = Response::HTTP_OK)
     {
         $response = [
             "success" => true,

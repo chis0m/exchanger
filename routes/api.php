@@ -33,8 +33,16 @@ Route::group(['namespace' => 'User'], function () {
                 Route::post('{id}', 'CurrencyController@updateThreshold');
                 Route::delete('{id}', 'CurrencyController@destroy');
             });
+
+            Route::group(['prefix' => 'notification', 'namespace' => 'Notification'], function ()
+            {
+                Route::get('', 'CustomNotificationController@getUserNotification');
+                Route::get('read', 'CustomNotificationController@getReadNotification');
+                Route::get('unread', 'CustomNotificationController@getUnReadNotification');
+                Route::get('{id}', 'CustomNotificationController@getNotification');
+                Route::put('/mark-as-read/{id}', 'CustomNotificationController@markAsRead');
+            });
         });
-    
     });
 });
 
