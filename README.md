@@ -45,7 +45,9 @@ To start Exchanger, perform the following step in the order
 - Run 'php artisan migrate:fresh --seed'
 - Run 'php artisan serve' to startup the application
 
-- NOTE: You need to add fixer api key to your .env file. Anyways for test reasons I added one in .env.example file
+- NOTE: 
+1. You need to **be connected to the internet** to run migration
+2. You need to add fixer api key to your .env file. Anyways for test reasons I added one in .env.example file
 
 
 ## For development
