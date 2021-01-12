@@ -1,4 +1,28 @@
-# Exchanger
+<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+</p>
+
+## About Laravel
+
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
+
+
+## Exchanger
 
 This repository holds Exchanger backend codebase.
 
@@ -18,8 +42,10 @@ To start Exchanger, perform the following step in the order
 - Fill your configuration settings in the '.env' file you created above
 - Run 'php artisan key:generate'
 - Run php artisan jwt:secret
-- Run 'php artisan migrate --seed'
+- Run 'php artisan migrate:fresh --seed'
 - Run 'php artisan serve' to startup the application
+
+- NOTE: You need to add fixer api key to your .env file. Anyways for test reasons I added one in .env.example file
 
 
 ## For development
@@ -40,7 +66,7 @@ To maintain quality, maintainability, reliability, security and uniform coding s
 
 4. Run 'php artisan test' to run all your test and make sure they pass.
 
-5. When you are done with PHPstan, PHPCS and Test and everything works fine, please, go ahead and raise a pull request (PR), with *develop* as the target branch. 
+5. When you are done with PHPstan, PHPCS and Test and everything works fine, please, go ahead and raise a pull request (PR), with *develop* as the target branch. For Every push github actions runs the test
 
 6. Congratulations
 
