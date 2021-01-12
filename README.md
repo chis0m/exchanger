@@ -82,5 +82,3 @@ To maintain quality, maintainability, reliability, security and uniform coding s
 ### Modules and Packages
 
 - [Tymon](https://jwt-auth.readthedocs.io/en/docs/laravel-installation/)
-- [Traits](https://www.php.net/manual/en/language.oop5.traits.php)
-- [Api Resources](https://laravel.com/docs/7.x/eloquent-resources)
