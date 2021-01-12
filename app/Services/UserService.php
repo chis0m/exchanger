@@ -29,7 +29,6 @@ class UserService
                 'base_currency_id' => $baseCurrencyId
             ]
         );
-        \Log::info('hello');
         return $data;
     }
 }

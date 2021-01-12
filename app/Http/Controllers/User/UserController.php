@@ -31,4 +31,15 @@ class UserController extends Controller
             return $this->respond($e);
         }
     }
+
+    public function refreshToken()
+    {
+        try {
+            $data = $this->refresh();
+            return $this->success('Request Successful', $data, Response::HTTP_OK);
+        } catch (Exception $e) {
+            DB::rollback();
+            return $this->respond($e);
+        }
+    }
 }

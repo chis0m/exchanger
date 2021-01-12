@@ -17,12 +17,12 @@ trait ApiResponse
         return response()->json($response, $statusCode);
     }
 
-    public function error($message = 'error', $statusCode = Response::HTTP_BAD_REQUEST, array $data = null)
+    public function error($message = 'Unsuccessful', $statusCode = Response::HTTP_BAD_REQUEST, array $data = null)
     {
         $response = [
             "success" => false,
             "message" => $message,
-            "data" => $data
+            "errors" => $data
         ];
         return response()->json($response, $statusCode);
     }
@@ -44,7 +44,7 @@ trait ApiResponse
         $response = [
             "success" => false,
             "message" => "Oops! Something went wrong on the server",
-            "error" => $error
+            "errors" => $error
         ];
         return response()->json($response, $statusCode);
     }

@@ -14,6 +14,8 @@ class AuthTest extends TestCase
 
     protected $baseUrl;
     private $user;
+    // private $email;
+    private $header;
 
 
     public function setUp() :void
@@ -25,9 +27,10 @@ class AuthTest extends TestCase
 
     private function create_user(){
         $this->user = factory(User::class)->create([
-            'name' => 'test',
+            'first_name' => 'test',
+            'last_name' => 'test',
             'email' => 'test@test.com',
-            'password' => Hash::make('test'),
+            'password' => Hash::make('test04'),
         ]);
     }
 
@@ -39,7 +42,7 @@ class AuthTest extends TestCase
     public function test_user_can_register()
     {
         $url = $this->baseUrl."/register";
-        $response = $this->post($url, ['name' => 'test1', 'email' => 'test1@test.com', 'password' => 'test04']);
+        $response = $this->post($url, ['first_name' => 'tester', 'last_name' => 'testee', 'email' => 'test3@test.com', 'password' => 'test04']);
         $response->assertStatus(201)->assertJson([
             'success' => true,
             'message' => 'Registration Successful',
@@ -57,12 +60,15 @@ class AuthTest extends TestCase
     public function test_to_validate_registration_input_errors()
     {
         $url = $this->baseUrl."/register";
-        $response = $this->post($url, ['name' => '', 'email' => '', 'password' => ''], ['Accept' => 'Application/json']);
+        $response = $this->post($url, ['first_name' => '', 'email' => '', 'password' => ''], ['Accept' => 'Application/json']);
         $response->assertStatus(422)->assertJson([
             'message' => 'The given data was invalid.',
             'errors' => [
-                'name' => [
-                    'The name field is required.'
+                'first_name' => [
+                    'The first name field is required.'
+                ],
+                'last_name' => [
+                    'The last name field is required.'
                 ],
                 'email' => [
                     'The email field is required.'
@@ -82,7 +88,7 @@ class AuthTest extends TestCase
     public function test_to_validate_password_field()
     {
         $url = $this->baseUrl."/register";
-        $response = $this->post($url, ['name' => 'test2', 'email' => 'test22@test.com', 'password' => 'test'], ['Accept' => 'Application/json']);
+        $response = $this->post($url, ['first_name' => 'testout', 'last_name' => 'testnow', 'email' => 'test22@test.com', 'password' => 'test'], ['Accept' => 'Application/json']);
         $response->assertStatus(422)->assertJson([
             'message' => 'The given data was invalid.',
             'errors' => [
@@ -100,8 +106,9 @@ class AuthTest extends TestCase
      */
     public function test_user_can_login()
     {
+        $this->actingAs($this->user);
         $url = $this->baseUrl."/login";
-        $response = $this->post($url, ['email' => 'test@test.com', 'password' => 'test']);
+        $response = $this->post($url, ['email' => 'test@test.com', 'password' => 'test04']);
         $response->assertStatus(202);
     }
 
@@ -116,6 +123,7 @@ class AuthTest extends TestCase
         $url = $this->baseUrl."/login";
         $response = $this->post($url, ['email' => '', 'password' => ''], ['Accept' => 'Application/json']);
         $response->assertStatus(422)->assertJson([
+            'success' => false,
             'message' => 'The given data was invalid.',
             'errors' => [
                 'email' => [

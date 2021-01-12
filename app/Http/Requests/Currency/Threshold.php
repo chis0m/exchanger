@@ -48,7 +48,7 @@ class Threshold extends FormRequest
             response()->json([
               'success' => false,
               'message' => 'The given data was invalid.',
-              'data' => $validator->errors()->toArray()
+              'errors' => $validator->errors()->toArray()
             ], 422)
         );
     }
