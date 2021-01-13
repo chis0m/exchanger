@@ -16,7 +16,7 @@ class CurrencyTableSeeder extends Seeder
             (new CurrencyService)->populateCurrencyTable();
         } catch (Exception $e) {
             $code = $e->getCode();
-            if($code == 0) dd('Internet Connection is required to run this seeder');
+            if($code == 0) dd('Internet Connection is required for this app to work completely');
             dd($e->getMessage());
         }
     }
