@@ -64,7 +64,7 @@ To maintain quality, maintainability, reliability, security and uniform coding s
 
 2. Run ```./vendor/bin/phpstan analyse --memory-limit=2G```, to analyse the entire codebase OR './vendor/bin/phpstan analyse /path/to/folder' to analyse a particular folder OR './vendor/bin/phpstan analyse /path/to/file.php' to analyse a particular file  against PHPStan. Fix any errors that show up until you have a green stipe with '[OK] No errors' written on it.
 
-3. Run ```./vendor/bin/phpcs app/```, to analyse the entire codebase OR './vendor/bin/phpcs /path/to/folder' to analyse a particular folder OR './vendor/bin/phpcs /path/to/file.php' to analyse a particular file  against PHPStan. Fix any errors that show up until you have a clean slate of 100%.
+3. Run ```./vendor/bin/phpcs```, to analyse the entire codebase OR './vendor/bin/phpcs /path/to/folder' to analyse a particular folder OR './vendor/bin/phpcs /path/to/file.php' to analyse a particular file  against PHPStan. Fix any errors that show up until you have a clean slate of 100%.
 
 4. Run 'php artisan test' to run all your test and make sure they pass.
 
