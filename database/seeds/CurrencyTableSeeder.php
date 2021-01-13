@@ -12,6 +12,12 @@ class CurrencyTableSeeder extends Seeder
      */
     public function run()
     {
-        (new CurrencyService)->populateCurrencyTable();
+        try {
+            (new CurrencyService)->populateCurrencyTable();
+        } catch (Exception $e) {
+            $code = $e->getCode();
+            if($code == 0) dd('Internet Connection is required to run this seeder');
+            dd($e->getMessage());
+        }
     }
 }

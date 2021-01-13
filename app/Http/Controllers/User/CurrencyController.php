@@ -52,4 +52,9 @@ class CurrencyController extends Controller
         $data = $this->currencyservice->getCurrencies();
         return $this->success('Currency Threshold Updated Successfully', $data, Response::HTTP_OK);
     }
+    public function getAllThresholds()
+    {
+        $data = $this->currencyservice->getAllThresholds();
+        return $this->success('Currency Threshold Updated Successfully', $data, Response::HTTP_OK);
+    }
 }

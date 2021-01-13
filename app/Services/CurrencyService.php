@@ -17,14 +17,23 @@ class CurrencyService
         return Currency::all()->toArray();
     }
 
+    public function getAllThresholds()
+    {
+        return CurrencyThreshold::all()->toArray();
+    }
+
     public function populateCurrencyTable()
     {
-        $currenciesFromRemote = (new ExchangeAdapter())->getCurrencies();
-        foreach ($currenciesFromRemote as $key => $value) {
-            Currency::updateOrCreate(
-                ['symbol' => $key],
-                ['title' => $value]
-            );
+        try {
+            $currenciesFromRemote = (new ExchangeAdapter())->getCurrencies();
+            foreach ($currenciesFromRemote as $key => $value) {
+                Currency::updateOrCreate(
+                    ['symbol' => $key],
+                    ['title' => $value]
+                );
+            }
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 

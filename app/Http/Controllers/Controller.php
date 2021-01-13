@@ -37,6 +37,7 @@ class Controller extends BaseController
             'expires_in' => $expiresIn,
             'expires_at' => $timestamp,
             'user' => $user,
+            'thresholds' => $user->thresholds,
         ];
         return $data;
     }
