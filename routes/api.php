@@ -13,22 +13,21 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/', function(){
+Route::get('/', function () {
     return response(["message" => "Welcome to exchanger"]);
 });
 
 //Authenticated as User
 Route::group(['namespace' => 'User'], function () {
-    Route::group(['prefix' => 'user', 'middleware' => 'assign.guard:users'], function(){
+    Route::group(['prefix' => 'user', 'middleware' => 'assign.guard:users'], function () {
         Route::post('register', 'RegisterController@create');
         Route::post('login', 'LoginController@login');
         //jwt.auth will check for validation of jwt token
-        Route::group(['middleware' => ['jwt.auth']],function ()
-        {
+        Route::group(['middleware' => ['jwt.auth']], function () {
             Route::get('refresh', 'UserController@refreshToken');
             Route::post('update', 'UserController@update');
 
-            Route::group(['prefix' => 'currency'], function(){
+            Route::group(['prefix' => 'currency'], function () {
                 Route::get('/', 'CurrencyController@get');
                 Route::get('/thresholds', 'CurrencyController@getAllThresholds');
                 Route::post('/', 'CurrencyController@createThreshold');
@@ -36,8 +35,7 @@ Route::group(['namespace' => 'User'], function () {
                 Route::delete('{id}', 'CurrencyController@destroy');
             });
 
-            Route::group(['prefix' => 'notification', 'namespace' => 'Notification'], function ()
-            {
+            Route::group(['prefix' => 'notification', 'namespace' => 'Notification'], function () {
                 Route::get('', 'CustomNotificationController@getUserNotification');
                 Route::get('read', 'CustomNotificationController@getReadNotification');
                 Route::get('unread', 'CustomNotificationController@getUnReadNotification');
@@ -51,14 +49,12 @@ Route::group(['namespace' => 'User'], function () {
 
 //Authenticated as Admin
 Route::group(['namespace' => 'Admin'], function () {
-    Route::group(['prefix' => 'admin', 'middleware' => 'assign.guard:admins'], function(){
+    Route::group(['prefix' => 'admin', 'middleware' => 'assign.guard:admins'], function () {
         Route::post('register', 'RegisterController@create');
         Route::post('login', 'LoginController@login');
-        Route::group(['middleware' => ['jwt.auth']],function ()
-        {
+        Route::group(['middleware' => ['jwt.auth']], function () {
             // Route Here
         });
-    
     });
 });
 
@@ -66,9 +62,8 @@ Route::group(['namespace' => 'Admin'], function () {
 
 //General route but Authenticated
 //api.auth will check against all guards
-Route::group(['prefix' => 'user','middleware' => ['api.auth']],function ()
-{
-    // Route Here;	
+Route::group(['prefix' => 'user','middleware' => ['api.auth']], function () {
+    // Route Here;
 });
 
 

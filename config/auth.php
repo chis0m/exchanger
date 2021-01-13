@@ -50,7 +50,7 @@ return [
             'driver' => 'jwt',
             'provider' => 'admins',
         ],
-        
+
     ],
 
     /*

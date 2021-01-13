@@ -18,14 +18,15 @@ class AuthTest extends TestCase
     private $header;
 
 
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
         $this->baseUrl = '/api/user';
-        $this->create_user();
+        $this->createUser();
     }
 
-    private function create_user(){
+    private function createUser()
+    {
         $this->user = factory(User::class)->create([
             'first_name' => 'test',
             'last_name' => 'test',
@@ -39,9 +40,9 @@ class AuthTest extends TestCase
      *
      * @return void
      */
-    public function test_user_can_register()
+    public function testUserCanRegister()
     {
-        $url = $this->baseUrl."/register";
+        $url = $this->baseUrl . "/register";
         $response = $this->post($url, ['first_name' => 'tester', 'last_name' => 'testee', 'email' => 'test3@test.com', 'password' => 'test04']);
         $response->assertStatus(201)->assertJson([
             'success' => true,
@@ -57,9 +58,9 @@ class AuthTest extends TestCase
      *
      * @return void
      */
-    public function test_to_validate_registration_input_errors()
+    public function testToValidateRegistrationInputErrors()
     {
-        $url = $this->baseUrl."/register";
+        $url = $this->baseUrl . "/register";
         $response = $this->post($url, ['first_name' => '', 'email' => '', 'password' => ''], ['Accept' => 'Application/json']);
         $response->assertStatus(422)->assertJson([
             'message' => 'The given data was invalid.',
@@ -85,10 +86,14 @@ class AuthTest extends TestCase
      *
      * @return void
      */
-    public function test_to_validate_password_field()
+    public function testToValidatePasswordField()
     {
-        $url = $this->baseUrl."/register";
-        $response = $this->post($url, ['first_name' => 'testout', 'last_name' => 'testnow', 'email' => 'test22@test.com', 'password' => 'test'], ['Accept' => 'Application/json']);
+        $url = $this->baseUrl . "/register";
+        $response = $this->post(
+            $url,
+            ['first_name' => 'testout', 'last_name' => 'testnow', 'email' => 'test22@test.com', 'password' => 'test'],
+            ['Accept' => 'Application/json']
+        );
         $response->assertStatus(422)->assertJson([
             'message' => 'The given data was invalid.',
             'errors' => [
@@ -104,10 +109,10 @@ class AuthTest extends TestCase
      *
      * @return void
      */
-    public function test_user_can_login()
+    public function testUserCanLogin()
     {
         $this->actingAs($this->user);
-        $url = $this->baseUrl."/login";
+        $url = $this->baseUrl . "/login";
         $response = $this->post($url, ['email' => 'test@test.com', 'password' => 'test04']);
         $response->assertStatus(202);
     }
@@ -118,9 +123,9 @@ class AuthTest extends TestCase
      *
      * @return void
      */
-    public function test_login_validation_errors()
+    public function testLoginValidationErrors()
     {
-        $url = $this->baseUrl."/login";
+        $url = $this->baseUrl . "/login";
         $response = $this->post($url, ['email' => '', 'password' => ''], ['Accept' => 'Application/json']);
         $response->assertStatus(422)->assertJson([
             'success' => false,
@@ -135,5 +140,4 @@ class AuthTest extends TestCase
             ]
         ]);
     }
-
 }

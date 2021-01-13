@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::any('/{any}', function() {
+Route::any('/{any}', function () {
     return response()->json(['error' => ['message' => 'Incorrect Route, Try Again']]);
 })->where('any', '^(?!api).*$');
-
