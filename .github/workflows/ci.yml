@@ -1,44 +1,44 @@
-name: exchanger continous integratioin
+# name: exchanger continous integratioin
 
-on:
-  push:
-    branches: [ master,develop ]
-  pull_request:
-    branches: [ master, develop ]
+# on:
+#   push:
+#     branches: [ master,develop ]
+#   pull_request:
+#     branches: [ master, develop ]
 
-jobs:
-  laravel-tests:
+# jobs:
+#   laravel-tests:
 
-    runs-on: ubuntu-latest
-    container:
-      image: kirschbaumdevelopment/laravel-test-runner:7.3
+#     runs-on: ubuntu-latest
+#     container:
+#       image: kirschbaumdevelopment/laravel-test-runner:7.3
 
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: exchanger_test
-        ports:
-          - 33306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+#     services:
+#       mysql:
+#         image: mysql:5.7
+#         env:
+#           MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#           MYSQL_DATABASE: exchanger_test
+#         ports:
+#           - 33306:3306
+#         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-    steps:
-    - uses: actions/checkout@v1
-      with:
-        fetch-depth: 1
-    - name: Install composer Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-    - name: Prepare Laravel Application
-      run: |
-        cp .env.testing .env
-    - name: Directory Permissions
-      run: |
-        chmod -R 777 storage bootstrap/cache
-        composer dump-autoload
-    - name: Execute command for PHPCS
-      run: vendor/bin/phpcs app/
-    - name: Execute Command for PHPStan
-      run: vendor/bin/phpstan analyse --memory-limit=2G
-    - name: Run Testsuite
-      run: vendor/bin/phpunit
+#     steps:
+#     - uses: actions/checkout@v1
+#       with:
+#         fetch-depth: 1
+#     - name: Install composer Dependencies
+#       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+#     - name: Prepare Laravel Application
+#       run: |
+#         cp .env.testing .env
+#     - name: Directory Permissions
+#       run: |
+#         chmod -R 777 storage bootstrap/cache
+#         composer dump-autoload
+#     - name: Execute command for PHPCS
+#       run: vendor/bin/phpcs app/
+#     - name: Execute Command for PHPStan
+#       run: vendor/bin/phpstan analyse --memory-limit=2G
+#     - name: Run Testsuite
+#       run: vendor/bin/phpunit
